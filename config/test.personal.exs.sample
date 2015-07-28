@@ -1,0 +1,9 @@
+# Configure your database
+config :phoenix_api, PhoenixApi.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "my_pg_user",
+  password: "my_secret",
+  database: "phoenix_api_test",
+  size: 10 # The amount of database connections in the pool
+
+# vim: set syn=elixir :
