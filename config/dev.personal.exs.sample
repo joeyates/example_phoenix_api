@@ -1,4 +1,5 @@
-# Configure your database
+use Mix.Config
+
 config :phoenix_api, PhoenixApi.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "my_pg_user",
