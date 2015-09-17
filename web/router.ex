@@ -9,5 +9,6 @@ defmodule PhoenixApi.Router do
     pipe_through :api
 
     get "/", RootController, :index
+    resources "/climbs", ClimbController
   end
 end
