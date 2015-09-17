@@ -48,4 +48,19 @@ defmodule PhoenixApi.ClimbTest do
     climb = %Climb{start: 45, finish: 950, length: 8300}
     assert Climb.difficulty(climb) == 987
   end
+
+  test "JSON includes name" do
+    climb = Repo.insert!(Climb.changeset(%Climb{}, @valid_attrs))
+    assert json_data(climb)["name"] == climb.name
+  end
+
+  test "JSON includes gradient" do
+    climb = Repo.insert!(Climb.changeset(%Climb{}, @valid_attrs))
+    assert json_data(climb)["gradient"] == Climb.gradient(climb)
+  end
+
+  test "JSON includes difficulty" do
+    climb = Repo.insert!(Climb.changeset(%Climb{}, @valid_attrs))
+    assert json_data(climb)["difficulty"] == Climb.difficulty(climb)
+  end
 end

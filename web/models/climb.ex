@@ -54,6 +54,11 @@ defimpl Poison.Encoder, for: PhoenixApi.Climb do
     %{
       id: climb.id,
       name: climb.name,
+      start: climb.start,
+      finish: climb.finish,
+      length: climb.length,
+      gradient: PhoenixApi.Climb.gradient(climb),
+      difficulty: PhoenixApi.Climb.difficulty(climb),
     } |> Poison.Encoder.encode([])
   end
 end

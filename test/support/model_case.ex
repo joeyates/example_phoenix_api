@@ -50,4 +50,13 @@ defmodule PhoenixApi.ModelCase do
   def errors_on(model, data) do
     model.__struct__.changeset(model, data).errors
   end
+
+  @doc """
+  Helper which returns the data from the JSON encoded form of the model.
+  """
+  def json_data(model) do
+    {:ok, json} = Poison.encode(model)
+    {:ok, data} = Poison.decode(json)
+    data
+  end
 end
