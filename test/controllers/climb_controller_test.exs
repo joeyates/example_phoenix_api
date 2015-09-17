@@ -21,9 +21,8 @@ defmodule PhoenixApi.ClimbControllerTest do
   test "shows chosen resource", %{conn: conn} do
     climb = Repo.insert! %Climb{}
     conn = get conn, climb_path(conn, :show, climb)
-    assert json_response(conn, 200)["data"] == %{
-      "id" => climb.id
-    }
+    json = json_response(conn, 200)
+    assert json["data"]["id"] == climb.id
   end
 
   test "does not show resource and instead throw error when id is nonexistent", %{conn: conn} do

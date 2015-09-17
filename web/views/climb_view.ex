@@ -10,6 +10,6 @@ defmodule PhoenixApi.ClimbView do
   end
 
   def render("climb.json", %{climb: climb}) do
-    %{id: climb.id}
+    climb
   end
 end

@@ -24,3 +24,12 @@ defmodule PhoenixApi.Climb do
     |> cast(params, @required_fields, @optional_fields)
   end
 end
+
+defimpl Poison.Encoder, for: PhoenixApi.Climb do
+  def encode(climb, _options) do
+    %{
+      id: climb.id,
+      name: climb.name,
+    } |> Poison.Encoder.encode([])
+  end
+end
