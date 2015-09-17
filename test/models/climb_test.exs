@@ -3,7 +3,7 @@ defmodule PhoenixApi.ClimbTest do
 
   alias PhoenixApi.Climb
 
-  @valid_attrs %{finish: 42, length: "120.5", name: "some content", start: 42}
+  @valid_attrs %{name: "A climb", start: 20, finish: 500, length: 12050.5}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
@@ -14,6 +14,24 @@ defmodule PhoenixApi.ClimbTest do
   test "changeset with invalid attributes" do
     changeset = Climb.changeset(%Climb{}, @invalid_attrs)
     refute changeset.valid?
+  end
+
+  test "finish must be greater than start" do
+    downhill = Map.merge(@valid_attrs, %{start: 1000})
+    changeset = Climb.changeset(%Climb{}, downhill)
+    assert Enum.any?(
+      changeset.errors,
+      fn(e) -> e == {:finish, "must be greater than start"} end
+    )
+  end
+
+  test "length must be positive" do
+    backwards = Map.merge(@valid_attrs, %{length: -500})
+    changeset = Climb.changeset(%Climb{}, backwards)
+    assert Enum.any?(
+      changeset.errors,
+      fn(e) -> e == {:length, {"must be greater than zero", 0}} end
+    )
   end
 
   test "rise returns metres gained" do

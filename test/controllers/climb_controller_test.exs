@@ -4,7 +4,7 @@ defmodule PhoenixApi.ClimbControllerTest do
   alias PhoenixApi.Climb
   @valid_attrs %{name: "A climb", start: 20, finish: 500, length: 12050.5}
   @valid_attrs1 %{name: "A long climb", start: 30, finish: 600, length: 11000.5}
-  @invalid_attrs %{}
+  @invalid_attrs %{start: 1000, finish: 10}
 
   setup do
     conn = conn() |> put_req_header("accept", "application/json")

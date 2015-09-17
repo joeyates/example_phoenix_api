@@ -22,6 +22,18 @@ defmodule PhoenixApi.Climb do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_rises()
+    |> validate_number(:length, greater_than: 0, message: "must be greater than zero")
+  end
+
+  def validate_rises(changeset) do
+    start = get_field(changeset, :start)
+    finish = get_field(changeset, :finish)
+    if finish <= start do
+      add_error changeset, :finish, "must be greater than start"
+    else
+      changeset
+    end
   end
 
   def rise(climb) do
