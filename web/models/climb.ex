@@ -23,6 +23,18 @@ defmodule PhoenixApi.Climb do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
+  def rise(climb) do
+    climb.finish - climb.start
+  end
+
+  def gradient(climb) do
+    rise(climb) / climb.length * 100
+  end
+
+  def difficulty(climb) do
+    trunc(round(:math.pow(gradient(climb), 2) * climb.length / 1000))
+  end
 end
 
 defimpl Poison.Encoder, for: PhoenixApi.Climb do
