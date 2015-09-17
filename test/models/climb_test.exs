@@ -18,20 +18,12 @@ defmodule PhoenixApi.ClimbTest do
 
   test "finish must be greater than start" do
     downhill = Map.merge(@valid_attrs, %{start: 1000})
-    changeset = Climb.changeset(%Climb{}, downhill)
-    assert Enum.any?(
-      changeset.errors,
-      fn(e) -> e == {:finish, "must be greater than start"} end
-    )
+    assert {:finish, "must be greater than start"} in errors_on(%Climb{}, downhill)
   end
 
   test "length must be positive" do
     backwards = Map.merge(@valid_attrs, %{length: -500})
-    changeset = Climb.changeset(%Climb{}, backwards)
-    assert Enum.any?(
-      changeset.errors,
-      fn(e) -> e == {:length, {"must be greater than zero", 0}} end
-    )
+    assert {:length, {"must be greater than zero", 0}} in errors_on(%Climb{}, backwards)
   end
 
   test "rise returns metres gained" do
